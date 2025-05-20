@@ -487,14 +487,12 @@ class PivotTableUI extends React.PureComponent {
       .sort(sortAs(this.state.unusedOrder));
 
     const unusedLength = unusedAttrs.reduce((r, e) => r + e.length, 0);
-    const horizUnused = unusedLength < this.props.unusedOrientationCutoff;
+    // const horizUnused = unusedLength < this.props.unusedOrientationCutoff;
 
     const unusedAttrsCell = this.makeDnDCell(
       unusedAttrs,
       order => this.setState({unusedOrder: order}),
-      `pvtAxisContainer pvtUnused ${
-        horizUnused ? 'pvtHorizList' : 'pvtVertList'
-      }`
+      `pvtAxisContainer pvtUnused pvtHorizList`
     );
 
     const colAttrs = this.props.cols.filter(
@@ -529,43 +527,43 @@ class PivotTableUI extends React.PureComponent {
       </td>
     );
 
-    if (horizUnused) {
-      return (
-        <table className="pvtUi">
-          <tbody onClick={() => this.setState({openDropdown: false})}>
-            <tr>
-              {rendererCell}
-              {unusedAttrsCell}
-            </tr>
-            <tr>
-              {aggregatorCell}
-              {colAttrsCell}
-            </tr>
-            <tr>
-              {rowAttrsCell}
-              {outputCell}
-            </tr>
-          </tbody>
-        </table>
-      );
-    }
-
+    // if (horizUnused) {
     return (
       <table className="pvtUi">
         <tbody onClick={() => this.setState({openDropdown: false})}>
           <tr>
             {rendererCell}
+            {unusedAttrsCell}
+          </tr>
+          <tr>
             {aggregatorCell}
             {colAttrsCell}
           </tr>
           <tr>
-            {unusedAttrsCell}
             {rowAttrsCell}
             {outputCell}
           </tr>
         </tbody>
       </table>
     );
+    // }
+
+    // return (
+    //   <table className="pvtUi">
+    //     <tbody onClick={() => this.setState({openDropdown: false})}>
+    //       <tr>
+    //         {rendererCell}
+    //         {aggregatorCell}
+    //         {colAttrsCell}
+    //       </tr>
+    //       <tr>
+    //         {unusedAttrsCell}
+    //         {rowAttrsCell}
+    //         {outputCell}
+    //       </tr>
+    //     </tbody>
+    //   </table>
+    // );
   }
 }
 

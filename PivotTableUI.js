@@ -614,11 +614,11 @@ var PivotTableUI = function (_React$PureComponent2) {
       var unusedLength = unusedAttrs.reduce(function (r, e) {
         return r + e.length;
       }, 0);
-      var horizUnused = unusedLength < this.props.unusedOrientationCutoff;
+      // const horizUnused = unusedLength < this.props.unusedOrientationCutoff;
 
       var unusedAttrsCell = this.makeDnDCell(unusedAttrs, function (order) {
         return _this8.setState({ unusedOrder: order });
-      }, 'pvtAxisContainer pvtUnused ' + (horizUnused ? 'pvtHorizList' : 'pvtVertList'));
+      }, 'pvtAxisContainer pvtUnused pvtHorizList');
 
       var colAttrs = this.props.cols.filter(function (e) {
         return !_this8.props.hiddenAttributes.includes(e) && !_this8.props.hiddenFromDragDrop.includes(e);
@@ -638,37 +638,7 @@ var PivotTableUI = function (_React$PureComponent2) {
         }))
       );
 
-      if (horizUnused) {
-        return _react2.default.createElement(
-          'table',
-          { className: 'pvtUi' },
-          _react2.default.createElement(
-            'tbody',
-            { onClick: function onClick() {
-                return _this8.setState({ openDropdown: false });
-              } },
-            _react2.default.createElement(
-              'tr',
-              null,
-              rendererCell,
-              unusedAttrsCell
-            ),
-            _react2.default.createElement(
-              'tr',
-              null,
-              aggregatorCell,
-              colAttrsCell
-            ),
-            _react2.default.createElement(
-              'tr',
-              null,
-              rowAttrsCell,
-              outputCell
-            )
-          )
-        );
-      }
-
+      // if (horizUnused) {
       return _react2.default.createElement(
         'table',
         { className: 'pvtUi' },
@@ -681,18 +651,40 @@ var PivotTableUI = function (_React$PureComponent2) {
             'tr',
             null,
             rendererCell,
+            unusedAttrsCell
+          ),
+          _react2.default.createElement(
+            'tr',
+            null,
             aggregatorCell,
             colAttrsCell
           ),
           _react2.default.createElement(
             'tr',
             null,
-            unusedAttrsCell,
             rowAttrsCell,
             outputCell
           )
         )
       );
+      // }
+
+      // return (
+      //   <table className="pvtUi">
+      //     <tbody onClick={() => this.setState({openDropdown: false})}>
+      //       <tr>
+      //         {rendererCell}
+      //         {aggregatorCell}
+      //         {colAttrsCell}
+      //       </tr>
+      //       <tr>
+      //         {unusedAttrsCell}
+      //         {rowAttrsCell}
+      //         {outputCell}
+      //       </tr>
+      //     </tbody>
+      //   </table>
+      // );
     }
   }]);
 
