@@ -516,7 +516,12 @@ var PivotTableUI = function (_React$PureComponent2) {
 
       var rendererCell = _react2.default.createElement(
         'td',
-        { className: 'pvtRenderers' },
+        {
+          className: 'pvtRenderers',
+          style: {
+            visibility: '' + (this.props.hiddenControls.includes('renderer') ? 'hidden' : 'visible')
+          }
+        },
         _react2.default.createElement(Dropdown, {
           current: rendererName,
           values: Object.keys(this.props.renderers),
@@ -547,7 +552,12 @@ var PivotTableUI = function (_React$PureComponent2) {
 
       var aggregatorCell = _react2.default.createElement(
         'td',
-        { className: 'pvtVals' },
+        {
+          className: 'pvtVals',
+          style: {
+            visibility: '' + (this.props.hiddenControls.includes('aggregator') ? 'hidden' : 'visible')
+          }
+        },
         _react2.default.createElement(Dropdown, {
           current: this.props.aggregatorName,
           values: Object.keys(this.props.aggregators),
@@ -611,28 +621,35 @@ var PivotTableUI = function (_React$PureComponent2) {
         return !_this8.props.rows.includes(e) && !_this8.props.cols.includes(e) && !_this8.props.hiddenAttributes.includes(e) && !_this8.props.hiddenFromDragDrop.includes(e);
       }).sort((0, _Utilities.sortAs)(this.state.unusedOrder));
 
-      var unusedLength = unusedAttrs.reduce(function (r, e) {
-        return r + e.length;
-      }, 0);
+      // const unusedLength = unusedAttrs.reduce((r, e) => r + e.length, 0);
       // const horizUnused = unusedLength < this.props.unusedOrientationCutoff;
+      var hideUnusedAttrs = this.props.hiddenControls.includes('unusedAttrs');
+      var hideColAttrs = this.props.hiddenControls.includes('colAttrs');
+      var hideRowAttrs = this.props.hiddenControls.includes('rowAttrs');
+      var onlyOutput = this.props.hiddenControls.includes('aggregator', 'renderer', 'rowAttrs', 'unusedAttrs', 'colAttrs');
 
       var unusedAttrsCell = this.makeDnDCell(unusedAttrs, function (order) {
         return _this8.setState({ unusedOrder: order });
-      }, 'pvtAxisContainer pvtUnused pvtHorizList');
+      }, 'pvtAxisContainer pvtUnused pvtHorizList \n      ' + (hideUnusedAttrs ? 'hideControl' : 'showControl') + '\n      ');
 
       var colAttrs = this.props.cols.filter(function (e) {
         return !_this8.props.hiddenAttributes.includes(e) && !_this8.props.hiddenFromDragDrop.includes(e);
       });
 
-      var colAttrsCell = this.makeDnDCell(colAttrs, this.propUpdater('cols'), 'pvtAxisContainer pvtHorizList pvtCols');
+      var colAttrsCell = this.makeDnDCell(colAttrs, this.propUpdater('cols'), 'pvtAxisContainer pvtHorizList pvtCols ' + (hideColAttrs ? 'hideControl' : 'showControl'));
 
       var rowAttrs = this.props.rows.filter(function (e) {
         return !_this8.props.hiddenAttributes.includes(e) && !_this8.props.hiddenFromDragDrop.includes(e);
       });
-      var rowAttrsCell = this.makeDnDCell(rowAttrs, this.propUpdater('rows'), 'pvtAxisContainer pvtVertList pvtRows');
+      var rowAttrsCell = this.makeDnDCell(rowAttrs, this.propUpdater('rows'), 'pvtAxisContainer pvtVertList pvtRows ' + (hideRowAttrs ? 'hideControl' : 'showControl') + ' ' + (onlyOutput ? 'removeTr' : ''));
       var outputCell = _react2.default.createElement(
         'td',
-        { className: 'pvtOutput' },
+        {
+          className: 'pvtOutput',
+          style: {
+            visibility: '' + (this.props.hiddenControls.includes('output') ? 'hidden' : 'visible')
+          }
+        },
         _react2.default.createElement(_PivotTable2.default, (0, _immutabilityHelper2.default)(this.props, {
           data: { $set: this.state.materializedInput }
         }))
@@ -649,19 +666,31 @@ var PivotTableUI = function (_React$PureComponent2) {
             } },
           _react2.default.createElement(
             'tr',
-            null,
+            {
+              style: {
+                display: '' + (this.props.hiddenControls.includes('renderer') && hideUnusedAttrs ? 'none' : '')
+              }
+            },
             rendererCell,
             unusedAttrsCell
           ),
           _react2.default.createElement(
             'tr',
-            null,
+            {
+              style: {
+                display: '' + (this.props.hiddenControls.includes('aggregator') && hideColAttrs ? 'none' : '')
+              }
+            },
             aggregatorCell,
             colAttrsCell
           ),
           _react2.default.createElement(
             'tr',
-            null,
+            {
+              style: {
+                display: '' + (hideRowAttrs && this.props.hiddenControls.includes('output') ? 'none' : '')
+              }
+            },
             rowAttrsCell,
             outputCell
           )
@@ -697,11 +726,13 @@ PivotTableUI.propTypes = Object.assign({}, _PivotTable2.default.propTypes, {
   hiddenFromAggregators: _propTypes2.default.arrayOf(_propTypes2.default.string),
   hiddenFromDragDrop: _propTypes2.default.arrayOf(_propTypes2.default.string),
   unusedOrientationCutoff: _propTypes2.default.number,
-  menuLimit: _propTypes2.default.number
+  menuLimit: _propTypes2.default.number,
+  hiddenControls: _propTypes2.default.arrayOf(_propTypes2.default.string)
 });
 
 PivotTableUI.defaultProps = Object.assign({}, _PivotTable2.default.defaultProps, {
   hiddenAttributes: [],
+  hiddenControls: [],
   hiddenFromAggregators: [],
   hiddenFromDragDrop: [],
   unusedOrientationCutoff: 85,

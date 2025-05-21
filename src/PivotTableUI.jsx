@@ -385,7 +385,16 @@ class PivotTableUI extends React.PureComponent {
         : Object.keys(this.props.renderers)[0];
 
     const rendererCell = (
-      <td className="pvtRenderers">
+      <td
+        className="pvtRenderers"
+        style={{
+          visibility: `${
+            this.props.hiddenControls.includes('renderer')
+              ? 'hidden'
+              : 'visible'
+          }`,
+        }}
+      >
         <Dropdown
           current={rendererName}
           values={Object.keys(this.props.renderers)}
@@ -416,7 +425,16 @@ class PivotTableUI extends React.PureComponent {
     };
 
     const aggregatorCell = (
-      <td className="pvtVals">
+      <td
+        className="pvtVals"
+        style={{
+          visibility: `${
+            this.props.hiddenControls.includes('aggregator')
+              ? 'hidden'
+              : 'visible'
+          }`,
+        }}
+      >
         <Dropdown
           current={this.props.aggregatorName}
           values={Object.keys(this.props.aggregators)}
@@ -486,13 +504,25 @@ class PivotTableUI extends React.PureComponent {
       )
       .sort(sortAs(this.state.unusedOrder));
 
-    const unusedLength = unusedAttrs.reduce((r, e) => r + e.length, 0);
+    // const unusedLength = unusedAttrs.reduce((r, e) => r + e.length, 0);
     // const horizUnused = unusedLength < this.props.unusedOrientationCutoff;
+    const hideUnusedAttrs = this.props.hiddenControls.includes('unusedAttrs');
+    const hideColAttrs = this.props.hiddenControls.includes('colAttrs');
+    const hideRowAttrs = this.props.hiddenControls.includes('rowAttrs');
+    const onlyOutput = this.props.hiddenControls.includes(
+      'aggregator',
+      'renderer',
+      'rowAttrs',
+      'unusedAttrs',
+      'colAttrs'
+    );
 
     const unusedAttrsCell = this.makeDnDCell(
       unusedAttrs,
       order => this.setState({unusedOrder: order}),
-      `pvtAxisContainer pvtUnused pvtHorizList`
+      `pvtAxisContainer pvtUnused pvtHorizList 
+      ${hideUnusedAttrs ? 'hideControl' : 'showControl'}
+      `
     );
 
     const colAttrs = this.props.cols.filter(
@@ -504,7 +534,9 @@ class PivotTableUI extends React.PureComponent {
     const colAttrsCell = this.makeDnDCell(
       colAttrs,
       this.propUpdater('cols'),
-      'pvtAxisContainer pvtHorizList pvtCols'
+      `pvtAxisContainer pvtHorizList pvtCols ${
+        hideColAttrs ? 'hideControl' : 'showControl'
+      }`
     );
 
     const rowAttrs = this.props.rows.filter(
@@ -515,10 +547,19 @@ class PivotTableUI extends React.PureComponent {
     const rowAttrsCell = this.makeDnDCell(
       rowAttrs,
       this.propUpdater('rows'),
-      'pvtAxisContainer pvtVertList pvtRows'
+      `pvtAxisContainer pvtVertList pvtRows ${
+        hideRowAttrs ? 'hideControl' : 'showControl'
+      } ${onlyOutput ? 'removeTr' : ''}`
     );
     const outputCell = (
-      <td className="pvtOutput">
+      <td
+        className="pvtOutput"
+        style={{
+          visibility: `${
+            this.props.hiddenControls.includes('output') ? 'hidden' : 'visible'
+          }`,
+        }}
+      >
         <PivotTable
           {...update(this.props, {
             data: {$set: this.state.materializedInput},
@@ -531,15 +572,40 @@ class PivotTableUI extends React.PureComponent {
     return (
       <table className="pvtUi">
         <tbody onClick={() => this.setState({openDropdown: false})}>
-          <tr>
+          <tr
+            style={{
+              display: `${
+                this.props.hiddenControls.includes('renderer') &&
+                hideUnusedAttrs
+                  ? 'none'
+                  : ''
+              }`,
+            }}
+          >
             {rendererCell}
             {unusedAttrsCell}
           </tr>
-          <tr>
+          <tr
+            style={{
+              display: `${
+                this.props.hiddenControls.includes('aggregator') && hideColAttrs
+                  ? 'none'
+                  : ''
+              }`,
+            }}
+          >
             {aggregatorCell}
             {colAttrsCell}
           </tr>
-          <tr>
+          <tr
+            style={{
+              display: `${
+                hideRowAttrs && this.props.hiddenControls.includes('output')
+                  ? 'none'
+                  : ''
+              }`,
+            }}
+          >
             {rowAttrsCell}
             {outputCell}
           </tr>
@@ -574,10 +640,12 @@ PivotTableUI.propTypes = Object.assign({}, PivotTable.propTypes, {
   hiddenFromDragDrop: PropTypes.arrayOf(PropTypes.string),
   unusedOrientationCutoff: PropTypes.number,
   menuLimit: PropTypes.number,
+  hiddenControls: PropTypes.arrayOf(PropTypes.string),
 });
 
 PivotTableUI.defaultProps = Object.assign({}, PivotTable.defaultProps, {
   hiddenAttributes: [],
+  hiddenControls: [],
   hiddenFromAggregators: [],
   hiddenFromDragDrop: [],
   unusedOrientationCutoff: 85,
