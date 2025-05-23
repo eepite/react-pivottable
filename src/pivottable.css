@@ -2,6 +2,7 @@
   color: #2a3f5f;
   font-family: Verdana;
   border-collapse: collapse;
+  width: 100%;
 }
 .pvtUi select {
   user-select: none;
@@ -22,6 +23,7 @@ table.pvtTable {
   margin-top: 3px;
   margin-left: 3px;
   font-family: Verdana;
+  width: 100%;
 }
 table.pvtTable thead tr th,
 table.pvtTable tbody tr th {
