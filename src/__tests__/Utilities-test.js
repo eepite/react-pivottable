@@ -19,7 +19,11 @@ const fixtureData = [
 describe('  utils', function() {
   describe('.PivotData()', function() {
     describe('with no options', function() {
-      const aoaInput = [['a', 'b'], [1, 2], [3, 4]];
+      const aoaInput = [
+        ['a', 'b'],
+        [1, 2],
+        [3, 4],
+      ];
       const pd = new utils.PivotData({data: aoaInput});
 
       it('has the correct grand total value', () =>
@@ -27,10 +31,14 @@ describe('  utils', function() {
     });
 
     describe('with array-of-array input', function() {
-      const aoaInput = [['a', 'b'], [1, 2], [3, 4]];
+      const aoaInput = [
+        ['a', 'b'],
+        [1, 2],
+        [3, 4],
+      ];
       const pd = new utils.PivotData({
         data: aoaInput,
-        aggregatorName: 'Sum over Sum',
+        aggregatorName: 'Suma sobre Suma',
         vals: ['a', 'b'],
       });
 
@@ -39,10 +47,13 @@ describe('  utils', function() {
     });
 
     describe('with array-of-object input', function() {
-      const aosInput = [{a: 1, b: 2}, {a: 3, b: 4}];
+      const aosInput = [
+        {a: 1, b: 2},
+        {a: 3, b: 4},
+      ];
       const pd = new utils.PivotData({
         data: aosInput,
-        aggregatorName: 'Sum over Sum',
+        aggregatorName: 'Suma sobre Suma',
         vals: ['a', 'b'],
       });
 
@@ -54,7 +65,7 @@ describe('  utils', function() {
       const raggedAosInput = [{a: 1}, {b: 4}, {a: 3, b: 2}];
       const pd = new utils.PivotData({
         data: raggedAosInput,
-        aggregatorName: 'Sum over Sum',
+        aggregatorName: 'Suma sobre Suma',
         vals: ['a', 'b'],
       });
 
@@ -69,7 +80,7 @@ describe('  utils', function() {
       };
       const pd = new utils.PivotData({
         data: functionInput,
-        aggregatorName: 'Sum over Sum',
+        aggregatorName: 'Suma sobre Suma',
         vals: ['a', 'b'],
       });
 
