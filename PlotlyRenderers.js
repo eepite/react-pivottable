@@ -250,15 +250,15 @@ function makeScatterRenderer(PlotlyComponent) {
 
 function createPlotlyRenderers(PlotlyComponent) {
   return {
-    'Grouped Column Chart': makeRenderer(PlotlyComponent, { type: 'bar' }, { barmode: 'group' }),
-    'Stacked Column Chart': makeRenderer(PlotlyComponent, { type: 'bar' }, { barmode: 'relative' }),
-    'Grouped Bar Chart': makeRenderer(PlotlyComponent, { type: 'bar', orientation: 'h' }, { barmode: 'group' }, true),
-    'Stacked Bar Chart': makeRenderer(PlotlyComponent, { type: 'bar', orientation: 'h' }, { barmode: 'relative' }, true),
-    'Line Chart': makeRenderer(PlotlyComponent),
-    'Dot Chart': makeRenderer(PlotlyComponent, { mode: 'markers' }, {}, true),
-    'Area Chart': makeRenderer(PlotlyComponent, { stackgroup: 1 }),
-    'Scatter Chart': makeScatterRenderer(PlotlyComponent),
-    'Multiple Pie Chart': makeRenderer(PlotlyComponent, { type: 'pie', scalegroup: 1, hoverinfo: 'label+value', textinfo: 'none' }, {}, true)
+    'Gráfico de Columnas Agrupadas': makeRenderer(PlotlyComponent, { type: 'bar' }, { barmode: 'group' }),
+    'Gráfico de Columnas Apiladas': makeRenderer(PlotlyComponent, { type: 'bar' }, { barmode: 'relative' }),
+    'Gráfico de Barras Agrupadas': makeRenderer(PlotlyComponent, { type: 'bar', orientation: 'h' }, { barmode: 'group' }, true),
+    'Gráfico de Barras Apiladas': makeRenderer(PlotlyComponent, { type: 'bar', orientation: 'h' }, { barmode: 'relative' }, true),
+    'Gráfico de Líneas': makeRenderer(PlotlyComponent),
+    'Gráfico de Puntos': makeRenderer(PlotlyComponent, { mode: 'markers' }, {}, true),
+    'Gráfico de Área': makeRenderer(PlotlyComponent, { stackgroup: 1 }),
+    'Gráfico de Dispersión': makeScatterRenderer(PlotlyComponent),
+    'Gráfico de Múltiples Pasteles': makeRenderer(PlotlyComponent, { type: 'pie', scalegroup: 1, hoverinfo: 'label+value', textinfo: 'none' }, {}, true)
   };
 }
 module.exports = exports['default'];

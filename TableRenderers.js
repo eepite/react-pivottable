@@ -425,11 +425,11 @@ TSVExportRenderer.defaultProps = _Utilities.PivotData.defaultProps;
 TSVExportRenderer.propTypes = _Utilities.PivotData.propTypes;
 
 exports.default = {
-  Table: makeRenderer(),
-  'Table Heatmap': makeRenderer({ heatmapMode: 'full' }),
-  'Table Col Heatmap': makeRenderer({ heatmapMode: 'col' }),
-  'Table Row Heatmap': makeRenderer({ heatmapMode: 'row' }),
-  'Exportable TSV': TSVExportRenderer
+  Tabla: makeRenderer(),
+  'Mapa de Calor de Tabla': makeRenderer({ heatmapMode: 'full' }),
+  'Mapa de Calor por Columnas': makeRenderer({ heatmapMode: 'col' }),
+  'Mapa de Calor por Filas': makeRenderer({ heatmapMode: 'row' }),
+  'TSV Exportable': TSVExportRenderer
 };
 module.exports = exports['default'];
 //# sourceMappingURL=TableRenderers.js.map
