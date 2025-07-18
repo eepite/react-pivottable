@@ -419,30 +419,27 @@ aggregatorTemplates.stdev = (ddof, f) =>
   aggregatorTemplates.runningStat('stdev', ddof, f);
 
 // default aggregators & renderers use US naming and number formatting
-// const aggregators = (tpl => ({
-//   Count: tpl.count(usFmtInt),
-//   'Count Unique Values': tpl.countUnique(usFmtInt),
-//   'List Unique Values': tpl.listUnique(', '),
-//   Sum: tpl.sum(usFmt),
-//   'Integer Sum': tpl.sum(usFmtInt),
-//   Average: tpl.average(usFmt),
-//   Median: tpl.median(usFmt),
-//   'Sample Variance': tpl.var(1, usFmt),
-//   'Sample Standard Deviation': tpl.stdev(1, usFmt),
-//   Minimum: tpl.min(usFmt),
-//   Maximum: tpl.max(usFmt),
-//   First: tpl.first(usFmt),
-//   Last: tpl.last(usFmt),
-//   'Sum over Sum': tpl.sumOverSum(usFmt),
-//   'Sum as Fraction of Total': tpl.fractionOf(tpl.sum(), 'total', usFmtPct),
-//   'Sum as Fraction of Rows': tpl.fractionOf(tpl.sum(), 'row', usFmtPct),
-//   'Sum as Fraction of Columns': tpl.fractionOf(tpl.sum(), 'col', usFmtPct),
-//   'Count as Fraction of Total': tpl.fractionOf(tpl.count(), 'total', usFmtPct),
-//   'Count as Fraction of Rows': tpl.fractionOf(tpl.count(), 'row', usFmtPct),
-//   'Count as Fraction of Columns': tpl.fractionOf(tpl.count(), 'col', usFmtPct),
-// }))(aggregatorTemplates);
-
 const aggregators = (tpl => ({
+  Count: tpl.count(usFmtInt),
+  'Count Unique Values': tpl.countUnique(usFmtInt),
+  'List Unique Values': tpl.listUnique(', '),
+  Sum: tpl.sum(usFmt),
+  'Integer Sum': tpl.sum(usFmtInt),
+  Average: tpl.average(usFmt),
+  Median: tpl.median(usFmt),
+  'Sample Variance': tpl.var(1, usFmt),
+  'Sample Standard Deviation': tpl.stdev(1, usFmt),
+  Minimum: tpl.min(usFmt),
+  Maximum: tpl.max(usFmt),
+  First: tpl.first(usFmt),
+  Last: tpl.last(usFmt),
+  'Sum over Sum': tpl.sumOverSum(usFmt),
+  'Sum as Fraction of Total': tpl.fractionOf(tpl.sum(), 'total', usFmtPct),
+  'Sum as Fraction of Rows': tpl.fractionOf(tpl.sum(), 'row', usFmtPct),
+  'Sum as Fraction of Columns': tpl.fractionOf(tpl.sum(), 'col', usFmtPct),
+  'Count as Fraction of Total': tpl.fractionOf(tpl.count(), 'total', usFmtPct),
+  'Count as Fraction of Rows': tpl.fractionOf(tpl.count(), 'row', usFmtPct),
+  'Count as Fraction of Columns': tpl.fractionOf(tpl.count(), 'col', usFmtPct),
   Contar: tpl.count(usFmtInt),
   'Contar Valores Únicos': tpl.countUnique(usFmtInt),
   'Listar Valores Únicos': tpl.listUnique(', '),
@@ -472,6 +469,37 @@ const aggregators = (tpl => ({
     usFmtPct
   ),
 }))(aggregatorTemplates);
+
+// const aggregatorsEs = (tpl => ({
+//   Contar: tpl.count(usFmtInt),
+//   'Contar Valores Únicos': tpl.countUnique(usFmtInt),
+//   'Listar Valores Únicos': tpl.listUnique(', '),
+//   Suma: tpl.sum(usFmt),
+//   'Suma Entera': tpl.sum(usFmtInt),
+//   Promedio: tpl.average(usFmt),
+//   Mediana: tpl.median(usFmt),
+//   'Varianza Muestral': tpl.var(1, usFmt),
+//   'Desviación Estándar Muestral': tpl.stdev(1, usFmt),
+//   Mínimo: tpl.min(usFmt),
+//   Máximo: tpl.max(usFmt),
+//   Primero: tpl.first(usFmt),
+//   Último: tpl.last(usFmt),
+//   'Suma sobre Suma': tpl.sumOverSum(usFmt),
+//   'Suma como Fracción del Total': tpl.fractionOf(tpl.sum(), 'total', usFmtPct),
+//   'Suma como Fracción de Filas': tpl.fractionOf(tpl.sum(), 'row', usFmtPct),
+//   'Suma como Fracción de Columnas': tpl.fractionOf(tpl.sum(), 'col', usFmtPct),
+//   'Conteo como Fracción del Total': tpl.fractionOf(
+//     tpl.count(),
+//     'total',
+//     usFmtPct
+//   ),
+//   'Conteo como Fracción de Filas': tpl.fractionOf(tpl.count(), 'row', usFmtPct),
+//   'Conteo como Fracción de Columnas': tpl.fractionOf(
+//     tpl.count(),
+//     'col',
+//     usFmtPct
+//   ),
+// }))(aggregatorTemplates);
 
 const locales = {
   en: {
